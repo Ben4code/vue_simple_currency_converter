@@ -1,3 +1,4 @@
+
 new Vue({
   el: "#app",
   mounted() {
@@ -5,6 +6,7 @@ new Vue({
   },
   computed:{
     formatedCurrencies(){
+      // console.log(getAPI())
       return Object.values(this.currencies);
     },
     disabled(){
@@ -36,7 +38,7 @@ new Vue({
         return;
       }
 
-      axios.get("https://free.currconv.com/api/v7/currencies?apiKey=04dd7225b52b96483057")
+      axios.get(`https://free.currconv.com/api/v7/currencies?apiKey=${getAPI()}`)
         .then((response) => {
           this.currencies = response.data.results;
           localStorage.setItem('currencies', JSON.stringify(response.data.results))
@@ -45,7 +47,7 @@ new Vue({
     },
     convert(){
       this.loading = true
-      axios.get(`https://free.currconv.com/api/v7/convert?q=${this.from}_${this.to}&compact=ultra&apiKey=04dd7225b52b96483057`)
+      axios.get(`https://free.currconv.com/api/v7/convert?q=${this.from}_${this.to}&compact=ultra&apiKey=${getAPI()}`)
         .then((response) => {
           this.result = (+this.amount * Object.values(response.data)[0]).toFixed(3)
           this.loading = false;
