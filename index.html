@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+  <title>Vuejs Currency Converter</title>
+  <style>
+    * {
+      border-radius: 0 !important;
+    }
+
+    body {
+      background-color: #E7F7F9;
+      font-family: 'Poppings', sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="container my-5">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="form">From</label>
+          <select v-model="from" class="form-control">
+            <option value="">Select currency</option>
+            <option :value="currency.id" v-for="currency in formatedCurrencies" v-bind:key="currency.currencyName"
+            >{{currency.currencyName}}</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="form">To</label>
+          <select v-model="to" class="form-control">
+            <option>Select currency</option>
+            <option :value="currency.id" v-for="currency in formatedCurrencies" v-bind:key="currency.currencyName"
+            >{{currency.currencyName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <input v-model="amount" type="text" placeholder="Amount" class="form-control mb-3">
+          <div class="text-center">
+            <button :disabled="disabled" class="btn btn-lg btn-primary" @click="convert">
+              {{ loading ? "Converting..." : "Convert"}}
+            </button></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <h1 class="text-center display-2 mt-5">{{result}}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
